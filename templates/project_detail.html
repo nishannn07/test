@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card">
+        <h1>{{ project.project_name }}</h1>
+        <p><strong>Project Key:</strong> {{ project.project_key }}</p>
+        <p><strong>Status:</strong> {{ project.status|title }}</p>
+        
+        <hr>
+        
+        <h3>Description</h3>
+        <p>{{ project.description or 'No description provided.' }}</p>
+        
+        <a href="{{ url_for('projects.edit_project', project_id=project.id) }}" class="btn">Edit Project</a>
+        <a href="{{ url_for('projects.kanban_board', project_id=project.id) }}" class="btn btn-secondary">View Board</a>
+    </div>
+
+    <div class="card">
+        <h3>Task Statistics</h3>
+        <ul>
+            <li><strong>Total Tasks:</strong> {{ stats.total }}</li>
+            <li><strong>To Do:</strong> {{ stats.get('todo', 0) }}</li>
+            <li><strong>In Progress:</strong> {{ stats.get('in_progress', 0) }}</li>
+            <li><strong>In Review:</strong> {{ stats.get('in_review', 0) }}</li>
+            <li><strong>Done:</strong> {{ stats.get('done', 0) }}</li>
+            <li><strong>Overdue Tasks:</strong> {{ stats.overdue }}</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Team Members</h3>
+        <ul>
+            {% for user in project.users %}
+                <li>{{ user.username }}</li>
+            {% else %}
+                <li>No members assigned.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

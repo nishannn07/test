@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="container">
+            <a href="{{ url_for('main.index') }}"><b>Project Board</b></a>
+            <nav>
+                {% if 'user_id' in session %}
+                    <span>Welcome, {{ session['username'] }}</span>
+                    &nbsp;|&nbsp;
+                    <a href="{{ url_for('users.logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('users.login') }}">Login</a>
+                    &nbsp;|&nbsp;
+                    <a href="{{ url_for('users.register') }}">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <div>
+        {% if 'user_id' in session %}
+        <aside class="sidebar">
+            <form action="{{ url_for('main.results') }}" method="get">
+                <div>
+                    <input type="search" name="q" placeholder="Search...">
+                </div>
+            </form>
+            <br>
+            <a href="{{ url_for('tasks.new_task') }}" class="btn">Create Task</a>
+            <hr>
+            <ul style="list-style-type: none; padding: 0;">
+                <li><a href="{{url_for('main.index')}}">Dashboard</a></li>
+                <li><a href="{{url_for('main.for_you')}}">For You</a></li>
+                <li><a href="{{url_for('main.notifications')}}">Notifications</a></li>
+                <li><a href="{{url_for('projects.list')}}">Projects</a></li>
+            </ul>
+        </aside>
+        {% endif %}
+
+        <main class="main-content">
+            <div class="container">
+                 {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category|default('info') }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

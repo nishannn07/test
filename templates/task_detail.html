@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card">
+        <h1>{{ task.title }}</h1>
+        <p>{{ task.project.project_name }}</p>
+        <a href="{{ url_for('tasks.edit_task', task_id=task.id) }}" class="btn">Edit Task</a>
+        <hr>
+        <h3>Description</h3>
+        <p>{{ task.description or 'No description provided' }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Comments</h3>
+        {% for comment in task.comments %}
+            <p><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
+        {% endfor %}
+        <form method="POST" action="{{ url_for('tasks.add_task_comment', task_id=task.id) }}">
+            {{ comment_form.hidden_tag() }}
+            <div>
+                {{ comment_form.content(rows="3", placeholder="Add a comment...") }}
+            </div>
+            {{ comment_form.submit() }}
+        </form>
+    </div>
+{% endblock %}

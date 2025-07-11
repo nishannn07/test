@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>{{ title }}</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div>
+            {{ form.title.label }}<br>
+            {{ form.title() }}
+        </div>
+        
+        <div>
+            {{ form.description.label }}<br>
+            {{ form.description(rows="4") }}
+        </div>
+        
+        <div>
+            {{ form.project_id.label }}<br>
+            {{ form.project_id() }}
+        </div>
+        
+        <div>
+            {{ form.assigned_to.label }}<br>
+            {{ form.assigned_to() }}
+        </div>
+        
+        <div>
+            {{ form.status.label }}<br>
+            {{ form.status() }}
+        </div>
+        
+        <div>
+            {{ form.submit(class="btn") }}
+            <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

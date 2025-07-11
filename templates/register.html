@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="card">
+        <h2>Register</h2>
+        <form method="POST" action="{{ url_for('users.register') }}">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.username.label }}<br>
+                {{ form.username() }}
+            </div>
+             <div>
+                {{ form.email.label }}<br>
+                {{ form.email() }}
+            </div>
+            <div>
+                {{ form.password.label }}<br>
+                {{ form.password() }}
+            </div>
+            {{ form.submit() }}
+        </form>
+        <hr>
+        <p>Already have an account? <a href="{{ url_for('users.login') }}">Login here</a>.</p>
+    </div>
+{% endblock %}

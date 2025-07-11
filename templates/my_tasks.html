@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>My Tasks</h1>
+    {% if tasks %}
+        {% for task in tasks %}
+            <div class="card">
+                <h3><a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a></h3>
+                <p>{{ task.project.project_name }}</p>
+                <p>Status: {{ task.status.replace('_', ' ')|title }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You don't have any tasks assigned to you yet.</p>
+    {% endif %}
+{% endblock %}

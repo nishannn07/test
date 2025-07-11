@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Projects</h1>
+    <a href="{{ url_for('projects.new_project') }}" class="btn">Create Project</a>
+    <hr>
+    {% if projects %}
+        {% for project in projects %}
+            <div class="card">
+                <h3><a href="{{ url_for('projects.view_project', project_id=project.id) }}">{{ project.project_name }}</a></h3>
+                <p>{{ project.description[:100] }}{% if project.description|length > 100 %}...{% endif %}</p>
+                <p><small>Key: {{ project.project_key }}</small></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No projects yet. Create your first project to get started.</p>
+    {% endif %}
+{% endblock %}

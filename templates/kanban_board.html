@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>{{ project.project_name }} - Board</h2>
+    <a href="{{ url_for('tasks.new_task') }}" class="btn">Create Task</a>
+    <hr>
+    <div style="display: flex; gap: 20px;">
+        <div class="card" style="flex: 1;">
+            <h4>To Do</h4>
+            {% for task in task_board.todo %}
+                <p><a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a></p>
+            {% endfor %}
+        </div>
+        <div class="card" style="flex: 1;">
+            <h4>In Progress</h4>
+            {% for task in task_board.in_progress %}
+                <p><a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a></p>
+            {% endfor %}
+        </div>
+        <div class="card" style="flex: 1;">
+            <h4>In Review</h4>
+            {% for task in task_board.in_review %}
+                <p><a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a></p>
+            {% endfor %}
+        </div>
+        <div class="card" style="flex: 1;">
+            <h4>Done</h4>
+            {% for task in task_board.done %}
+                <p><a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

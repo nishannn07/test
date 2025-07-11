@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Dashboard</h1>
+    <div class="card">
+        <h3>My Projects</h3>
+        {% if projects %}
+            <ul>
+            {% for project in projects[:5] %}
+                <li><a href="{{ url_for('projects.view_project', project_id=project.id) }}">{{ project.project_name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No projects yet. <a href="{{ url_for('projects.new_project') }}">Create one</a>.</p>
+        {% endif %}
+    </div>
+    <div class="card">
+        <h3>My Tasks</h3>
+        {% if tasks %}
+             <ul>
+            {% for task in tasks[:10] %}
+                <li><a href="{{ url_for('tasks.view_task', task_id=task.id) }}">{{ task.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No tasks assigned to you.</p>
+        {% endif %}
+    </div>
+{% endblock %}

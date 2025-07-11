@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>{{ title }}</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div>
+            {{ form.project_name.label }}<br>
+            {{ form.project_name() }}
+        </div>
+        
+        <div>
+            {{ form.project_key.label }}<br>
+            {{ form.project_key() }}
+            <small>Short identifier (e.g., PROJ)</small>
+        </div>
+        
+        <div>
+            {{ form.description.label }}<br>
+            {{ form.description(rows="4") }}
+        </div>
+        
+        <div>
+            {{ form.project_link.label }}<br>
+            {{ form.project_link() }}
+        </div>
+
+        <div>
+            {{ form.status.label }}<br>
+            {{ form.status() }}
+        </div>
+            
+        <div>
+            {{ form.users.label }}<br>
+            {{ form.users(multiple=True, size=6) }}
+            <small>Hold Ctrl (or Cmd on Mac) to select multiple users.</small>
+        </div>
+        
+        <div>
+            {{ form.submit(class="btn") }}
+            <a href="{{ url_for('projects.list') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
